@@ -87,13 +87,9 @@ class StudentDetails extends StatelessWidget {
     var name = _nameController.text.trim();
     var subject = _subjectController.text.trim();
     if (name.isNotEmpty && subject.isNotEmpty) {
-      provider.addStudent(Student(name: name, subject: subject));
+      provider.addStudent(Student(
+          roll: provider.assignRollNumber(), name: name, subject: subject));
       Navigator.pop(_);
     }
-    // if (_studentFormKey.currentState.validate()) {
-
-    // } else {
-    //   print('error');
-    // }
   }
 }

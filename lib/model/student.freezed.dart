@@ -18,9 +18,11 @@ class _$StudentTearOff {
 
 // ignore: unused_element
   _Student call(
-      {@JsonKey(name: 'name') String name,
-      @JsonKey(name: 'subject') String subject}) {
+      {@required @JsonKey(name: 'id') int roll,
+      @required @JsonKey(name: 'name') String name,
+      @required @JsonKey(name: 'subject') String subject}) {
     return _Student(
+      roll: roll,
       name: name,
       subject: subject,
     );
@@ -38,6 +40,8 @@ const $Student = _$StudentTearOff();
 
 /// @nodoc
 mixin _$Student {
+  @JsonKey(name: 'id')
+  int get roll;
   @JsonKey(name: 'name')
   String get name;
   @JsonKey(name: 'subject')
@@ -53,7 +57,8 @@ abstract class $StudentCopyWith<$Res> {
   factory $StudentCopyWith(Student value, $Res Function(Student) then) =
       _$StudentCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'name') String name,
+      {@JsonKey(name: 'id') int roll,
+      @JsonKey(name: 'name') String name,
       @JsonKey(name: 'subject') String subject});
 }
 
@@ -67,10 +72,12 @@ class _$StudentCopyWithImpl<$Res> implements $StudentCopyWith<$Res> {
 
   @override
   $Res call({
+    Object roll = freezed,
     Object name = freezed,
     Object subject = freezed,
   }) {
     return _then(_value.copyWith(
+      roll: roll == freezed ? _value.roll : roll as int,
       name: name == freezed ? _value.name : name as String,
       subject: subject == freezed ? _value.subject : subject as String,
     ));
@@ -83,7 +90,8 @@ abstract class _$StudentCopyWith<$Res> implements $StudentCopyWith<$Res> {
       __$StudentCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'name') String name,
+      {@JsonKey(name: 'id') int roll,
+      @JsonKey(name: 'name') String name,
       @JsonKey(name: 'subject') String subject});
 }
 
@@ -98,10 +106,12 @@ class __$StudentCopyWithImpl<$Res> extends _$StudentCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object roll = freezed,
     Object name = freezed,
     Object subject = freezed,
   }) {
     return _then(_Student(
+      roll: roll == freezed ? _value.roll : roll as int,
       name: name == freezed ? _value.name : name as String,
       subject: subject == freezed ? _value.subject : subject as String,
     ));
@@ -113,12 +123,19 @@ class __$StudentCopyWithImpl<$Res> extends _$StudentCopyWithImpl<$Res>
 /// @nodoc
 class _$_Student implements _Student {
   const _$_Student(
-      {@JsonKey(name: 'name') this.name,
-      @JsonKey(name: 'subject') this.subject});
+      {@required @JsonKey(name: 'id') this.roll,
+      @required @JsonKey(name: 'name') this.name,
+      @required @JsonKey(name: 'subject') this.subject})
+      : assert(roll != null),
+        assert(name != null),
+        assert(subject != null);
 
   factory _$_Student.fromJson(Map<String, dynamic> json) =>
       _$_$_StudentFromJson(json);
 
+  @override
+  @JsonKey(name: 'id')
+  final int roll;
   @override
   @JsonKey(name: 'name')
   final String name;
@@ -128,13 +145,15 @@ class _$_Student implements _Student {
 
   @override
   String toString() {
-    return 'Student(name: $name, subject: $subject)';
+    return 'Student(roll: $roll, name: $name, subject: $subject)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Student &&
+            (identical(other.roll, roll) ||
+                const DeepCollectionEquality().equals(other.roll, roll)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.subject, subject) ||
@@ -144,6 +163,7 @@ class _$_Student implements _Student {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(roll) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(subject);
 
@@ -160,11 +180,15 @@ class _$_Student implements _Student {
 
 abstract class _Student implements Student {
   const factory _Student(
-      {@JsonKey(name: 'name') String name,
-      @JsonKey(name: 'subject') String subject}) = _$_Student;
+      {@required @JsonKey(name: 'id') int roll,
+      @required @JsonKey(name: 'name') String name,
+      @required @JsonKey(name: 'subject') String subject}) = _$_Student;
 
   factory _Student.fromJson(Map<String, dynamic> json) = _$_Student.fromJson;
 
+  @override
+  @JsonKey(name: 'id')
+  int get roll;
   @override
   @JsonKey(name: 'name')
   String get name;

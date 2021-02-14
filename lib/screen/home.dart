@@ -26,11 +26,21 @@ class _HomeState extends State<Home> {
               ? ListView.builder(
                   itemCount: provider.studentList.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(provider.studentList[index].name),
-                      subtitle: Text(
-                          'Favorite subject is ${provider.studentList[index].subject}'),
-                      leading: Icon(Icons.play_arrow),
+                    var student = provider.studentList[index];
+                    return Dismissible(
+                      key: Key(student.roll.toString()),
+                      onDismissed: (direction) {
+                        provider.removeStudent(student);
+                      },
+                      background: Container(color: Colors.red),
+                      child: ListTile(
+                        title: Text(student.name),
+                        subtitle:
+                            Text('Favorite subject is ${student.subject}'),
+                        leading: CircleAvatar(
+                          child: Text(student.roll.toString()),
+                        ),
+                      ),
                     );
                   },
                 )
@@ -46,7 +56,7 @@ class _HomeState extends State<Home> {
         child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Text(
-        'No student found. \nClick on the floating action button to add new student',
+        'No student found. \nClick on the + button to add a new student',
         textAlign: TextAlign.center,
       ),
     ));

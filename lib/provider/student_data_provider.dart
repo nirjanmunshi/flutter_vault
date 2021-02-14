@@ -8,4 +8,11 @@ class StudentDataProvider extends ChangeNotifier {
     studentList.add(student);
     notifyListeners();
   }
+
+  int assignRollNumber() => studentList.isEmpty ? 1 : studentList.length + 1;
+
+  void removeStudent(Student student) {
+    studentList.remove(student);
+    notifyListeners();
+  }
 }

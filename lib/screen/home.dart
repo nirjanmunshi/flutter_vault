@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vault/model/student.dart';
 import 'package:flutter_vault/provider/student_data_provider.dart';
+import 'package:flutter_vault/screen/student_details.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +19,8 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, '/addStudent');
+          var student = Student(roll: -1, name: '', subject: '');
+          routeToStudentDetails(student);
         },
       ),
       body: Container(child: Consumer<StudentDataProvider>(
@@ -40,6 +43,7 @@ class _HomeState extends State<Home> {
                         leading: CircleAvatar(
                           child: Text(student.roll.toString()),
                         ),
+                        onTap: () => routeToStudentDetails(student),
                       ),
                     );
                   },
@@ -48,6 +52,16 @@ class _HomeState extends State<Home> {
         },
       )),
     );
+  }
+
+  void routeToStudentDetails(Student student) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StudentDetails(
+            student: student,
+          ),
+        ));
   }
 
   // when there are no items present in the list. This will be shown to user
